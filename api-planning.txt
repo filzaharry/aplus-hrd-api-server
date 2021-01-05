@@ -1,0 +1,432 @@
+Standar API
+
+[METHOD] : {root.api}/{version}/{grouping}/{endpoint}
+SAMPLE:
+[POST] : http://mern-api.kabayancoding.com/v1/auth/login
+
+========================================================================================
+
+Standar Status Response
+
+200 - OK                        --> Call API Success
+201 - CREATED                   --> Post Success
+400 - BAD REQUEST               --> Error on Client Side (Bisa input yang salah dll).
+401 - UNAUTHORIZED              --> User not authorized to the request.
+403 - FORBIDDEN                 --> User not allowed to access.
+404 - NOT FOUND                 --> Request Endpoint Not Found.
+500 - INTERNAL SERVER ERROR     --> Error on Server Side
+502 - BAD GATEWAY               --> Invalid Response From Antoher Request
+
+
+========================================================================================
+GROUP: Authentication
+========================================================================================
+1 - Register
+{root.api}/{version}/auth/register
+
+    req: {
+        "name": "Username",
+        "email": "example@gmail.com",
+        "password": "123"
+    }
+
+    res:{
+        "message": "Register Success",
+        "data": {
+            "id": 1,
+            "name": "Username",
+            "email": "example@gmail.com",
+            "password": "123"
+        }
+    }
+
+    err-response: 
+    201 -> Register Berhasil
+    400 -> Input yang anda masukan tidak valid
+
+========================================================================================
+2 - Login
+{root.api}/{version}/auth/login
+
+    req: {
+        "email": "example@gmail.com",
+        "password": "123"
+    }
+
+    res:{
+        "message": "Login Success",
+        "data": {
+            "id": 1,
+            "email": "example@gmail.com",
+            "token": "JDkei199dk3i"
+        }
+    }
+
+    err-response: 
+    200 -> Login Berhasil
+    400 -> Input yang anda masukan tidak valid
+
+
+========================================================================================
+GROUP: KARYAWAN
+========================================================================================
+1 - Create Karyawan
+{root.api}/{version}/hrd/karyawan
+
+    req: {
+      "image": "gambar.jpg",
+      "name": "saber",
+      "nik": "apk.112",
+      "jabatan": "staff",
+      "departemen": "excalibur",
+      "kontrak": "1 tahun",
+      "tglMulai": "12-12-20",
+      "tglSelesai": "12-12-21",
+      "tempatLahir": "Yogyakarta",
+      "tglLahir": "01-12-97",
+      "gender": "female",
+      "agama": "islam",
+      "alamat": "perum bumi indah",
+      "porto": "link gdrive",
+      "cv": "link gdrive",
+      "nilai": "total 90"
+}
+
+    res: {
+    "message": "Berhasil Tambah Karyawan",
+    "data": {
+        "karyawan_id": 1,
+        "image": "gambar.jpg",
+        "name": "saber",
+        "nik": "apk.112",
+        "jabatan": "staff",
+        "departemen": {
+            "id": 11,
+            "nama_dep": "Driver",
+            "supervisor": "Tio",
+            "jenis_dep": "Pengiriman"
+        },
+        "kontrak": "1 tahun",
+        "tglMulai": "12-12-20",
+        "tglSelesai": "12-12-21",
+        "tempatLahir": "Yogyakarta",
+        "tglLahir": "01-12-97",
+        "gender": "female",
+        "agama": "islam",
+        "alamat": "perum bumi indah",
+        "porto": "link gdrive",
+        "cv": "link gdrive",
+        "nilai": [
+            {
+                "id": 1,
+                "sikap": "80",
+                "disiplin": "70",
+                "status": "diperpanjang",
+                "periode": "1 tahun"
+            },
+            {
+                "id": 2,
+                "sikap": "40",
+                "disiplin": "10",
+                "status": "diperpanjang",
+                "periode": "1 tahun"
+            }
+      ]
+    }
+}
+
+    err-response: 
+    200 -> Berhasil Tambah Karyawan
+    400 -> Input yang anda masukan tidak valid
+
+     
+========================================================================================
+2 - Get Karyawan
+all           = {root.api}/{version}/hrd/karyawan
+detail per id = {root.api}/{version}/hrd/karyawan/{karyawan_id}
+
+    res: {
+    "message": "Berhasil Get Karyawan",
+    "total_karyawan": 100,
+    "per_page": 10,
+    "total_page": 10,
+    "data": 
+    [
+        {
+            "karyawan_id": 1,
+            "image": "gambar-1.jpg",
+            "name": "saber",
+            "nik": "apk.112",
+            "jabatan": "staff",
+            "departemen": {
+                "id": 11,
+                "nama_dep": "Driver",
+                "supervisor": "Tio",
+                "jenis_dep": "Pengiriman"
+            },
+            "kontrak": "1 tahun",
+            "tglMulai": "12-12-20",
+            "tglSelesai": "12-12-21",
+            "tempatLahir": "Yogyakarta",
+            "tglLahir": "01-12-97",
+            "gender": "female",
+            "agama": "islam",
+            "alamat": "perum bumi indah",
+            "porto": "link gdrive",
+            "cv": "link gdrive",
+            "nilai": [
+                {
+                    "id": 1,
+                    "sikap": "80",
+                    "disiplin": "70",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                },
+                {
+                    "id": 2,
+                    "sikap": "40",
+                    "disiplin": "10",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                }
+            ]
+        },
+        {
+            "karyawan_id": 2,
+            "image": "gambar-2.jpg",
+            "name": "saber",
+            "nik": "apk.112",
+            "jabatan": "staff",
+            "departemen": {
+                "id": 11,
+                "nama_dep": "Driver",
+                "supervisor": "Tio",
+                "jenis_dep": "Pengiriman"
+            },
+            "kontrak": "1 tahun",
+            "tglMulai": "12-12-20",
+            "tglSelesai": "12-12-21",
+            "tempatLahir": "Yogyakarta",
+            "tglLahir": "01-12-97",
+            "gender": "female",
+            "agama": "islam",
+            "alamat": "perum bumi indah",
+            "porto": "link gdrive",
+            "cv": "link gdrive",
+            "nilai": [
+                {
+                    "id": 1,
+                    "sikap": "80",
+                    "disiplin": "70",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                },
+                {
+                    "id": 2,
+                    "sikap": "40",
+                    "disiplin": "10",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                }
+            ]
+        },
+        {
+            "karyawan_id": 3,
+            "image": "gambar-3.jpg",
+            "name": "saber",
+            "nik": "apk.112",
+            "jabatan": "staff",
+            "departemen": {
+                "id": 11,
+                "nama_dep": "Driver",
+                "supervisor": "Tio",
+                "jenis_dep": "Pengiriman"
+            },
+            "kontrak": "1 tahun",
+            "tglMulai": "12-12-20",
+            "tglSelesai": "12-12-21",
+            "tempatLahir": "Yogyakarta",
+            "tglLahir": "01-12-97",
+            "gender": "female",
+            "agama": "islam",
+            "alamat": "perum bumi indah",
+            "porto": "link gdrive",
+            "cv": "link gdrive",
+            "nilai": [
+                {
+                    "id": 1,
+                    "sikap": "80",
+                    "disiplin": "70",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                },
+                {
+                    "id": 2,
+                    "sikap": "40",
+                    "disiplin": "10",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                }
+            ]
+        },
+    ]
+}
+
+    err-response: 
+    200 -> Berhasil Get Karyawan
+    400 -> Input yang anda masukan tidak valid
+
+
+========================================================================================
+3 - Update Karyawan
+{root.api}/{version}/hrd/karyawan/{karyawan_id}
+
+    req: {
+      "image": "gambar.jpg",
+      "name": "saber",
+      "nik": "apk.112",
+      "jabatan": "staff",
+      "departemen": "excalibur",
+      "kontrak": "1 tahun",
+      "tglMulai": "12-12-20",
+      "tglSelesai": "12-12-21",
+      "tempatLahir": "Yogyakarta",
+      "tglLahir": "01-12-97",
+      "gender": "female",
+      "agama": "islam",
+      "alamat": "perum bumi indah",
+      "porto": "link gdrive",
+      "cv": "link gdrive",
+      "nilai": "total 90"
+}
+
+    res: {
+    "message": "Berhasil Update Karyawan",
+    "data": 
+        {
+            "karyawan_id": 1,
+            "image": "gambar-1.jpg",
+            "name": "saber",
+            "nik": "apk.112",
+            "jabatan": "staff",
+            "departemen": {
+                "id": 11,
+                "nama_dep": "Driver",
+                "supervisor": "Tio",
+                "jenis_dep": "Pengiriman"
+            },
+            "kontrak": "1 tahun",
+            "tglMulai": "12-12-20",
+            "tglSelesai": "12-12-21",
+            "tempatLahir": "Yogyakarta",
+            "tglLahir": "01-12-97",
+            "gender": "female",
+            "agama": "islam",
+            "alamat": "perum bumi indah",
+            "porto": "link gdrive",
+            "cv": "link gdrive",
+            "nilai": [
+                {
+                    "id": 1,
+                    "sikap": "80",
+                    "disiplin": "70",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                },
+                {
+                    "id": 2,
+                    "sikap": "40",
+                    "disiplin": "10",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                }
+            ]
+        }
+
+
+   err-response: 
+    200 -> Berhasil Get Karyawan
+    400 -> Input yang anda masukan tidak valid
+
+
+========================================================================================
+4 - Delete Karyawan
+{root.api}/{version}/hrd/karyawan/{karyawan_id}
+
+    res: {
+    "message": "Berhasil Update Karyawan",
+    "data": 
+        {
+            "karyawan_id": 1,
+            "image": "gambar-1.jpg",
+            "name": "saber",
+            "nik": "apk.112",
+            "jabatan": "staff",
+            "departemen": {
+                "id": 11,
+                "nama_dep": "Driver",
+                "supervisor": "Tio",
+                "jenis_dep": "Pengiriman"
+            },
+            "kontrak": "1 tahun",
+            "tglMulai": "12-12-20",
+            "tglSelesai": "12-12-21",
+            "tempatLahir": "Yogyakarta",
+            "tglLahir": "01-12-97",
+            "gender": "female",
+            "agama": "islam",
+            "alamat": "perum bumi indah",
+            "porto": "link gdrive",
+            "cv": "link gdrive",
+            "nilai": [
+                {
+                    "id": 1,
+                    "sikap": "80",
+                    "disiplin": "70",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                },
+                {
+                    "id": 2,
+                    "sikap": "40",
+                    "disiplin": "10",
+                    "status": "diperpanjang",
+                    "periode": "1 tahun"
+                }
+            ]
+        }
+
+
+   err-response: 
+    200 -> Berhasil Get Karyawan
+    400 -> Input yang anda masukan tidak valid
+
+
+========================================================================================
+SUBGROUP: NILAI KARYAWAN
+
+1 - Create Nilai Karyawan
+2 - Get Nilai Karyawan
+3 - Update Nilai Karyawan
+4 - Delete Nilai Karyawan
+
+SUBGROUP: NILAI KARYAWAN FROM HRD
+
+1 - Create Nilai Karyawan From HRD
+2 - Get Nilai Karyawan From HRD
+3 - Update Nilai Karyawan From HRD
+4 - Delete Nilai Karyawan From HRD
+
+SUBGROUP: NILAI KARYAWAN FROM SPV
+
+1 - Create Nilai Karyawan From SPV
+2 - Get Nilai Karyawan From SPV
+3 - Update Nilai Karyawan From SPV
+4 - Delete Nilai Karyawan From SPV
+
+GROUP: DEPARTEMEN
+
+1 - Create Departemen
+2 - Get Departemen
+3 - Update Departemen
+4 - Delete Departemen
