@@ -12,6 +12,8 @@ const multer = require("multer");
 const path = require("path");
 // import cors
 const cors = require('cors');
+// import dotenv
+require("dotenv").config();
 
 const userRoutes = require("./src/routes/user");
 const karyawanRoutes = require("./src/routes/karyawan");
@@ -105,6 +107,6 @@ mongoose
   )
   .then(() => {
     // port mongoose running localhost:4000
-    app.listen(4000, () => console.log("Koneksi ke mongoose sukses gan!!!"));
+    app.listen(process.env.PORT || 4000, () => console.log("Koneksi ke mongoose sukses gan!!!"));
   })
   .catch((error) => console.log("error woyy:", error));
