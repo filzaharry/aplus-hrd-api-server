@@ -4,8 +4,8 @@ const nilaiController = require("../controllers/nilaiHrd");
 
 router.post("/periode/:periodeId",nilaiController.createNilaiHrd);
 router.get("/periode/:periodeId/nilaihrd", nilaiController.getAllNilaiHrd);
-router.get("/periode/:periodeId/nilaihrd/:nilaiHrdId", nilaiController.getNilaiHrdById);
-router.put("/periode/:periodeId/nilaihrd/:nilaiHrdId", nilaiController.updateNilaiHrd);
-router.delete("/periode/:periodeId/nilaihrd/:nilaiHrdId",nilaiController.deleteNilaiHrd);
+router.get("/nilaihrd/:nilaiHrdId", nilaiController.getNilaiHrdById);
+router.put("/nilaihrd/:nilaiHrdId", nilaiController.updateNilaiHrd);
+router.delete("/nilaihrd/:nilaiHrdId",nilaiController.deleteNilaiHrd);
 
 module.exports = router;

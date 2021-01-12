@@ -81,8 +81,8 @@ exports.getPeriodeById = (req, res, next) => {
   const periodeId = req.params.periodeId;
   periodeSchema
     .findById(periodeId)
-    .populate({ path: 'nilaiSpvId', select: 'id hasilAkhir' })
-    .populate({ path: 'nilaiHrdId', select: 'id hasilAkhir' })
+    .populate({ path: 'nilaiSpvId', select: 'id hasilAkhir updatedAt' })
+    .populate({ path: 'nilaiHrdId', select: 'id updatedAt masuk izin setengahHari sakit alpa hasilAkhir' })
     .then((result) => {
       if (!result) {
         const error = new Error("Periode tidak ditemukan");

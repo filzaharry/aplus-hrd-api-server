@@ -32,7 +32,7 @@ exports.createNilaiSpv = async (req, res, next) => {
     const question5 = req.body.question5;
 
     const periode = await periodeSchema.findOne({ _id: req.params.periodeId });
-    console.log(periode)
+    // console.log(periode)
 
     const hasilAkhir =
       (hasilKerja +
@@ -70,7 +70,7 @@ exports.createNilaiSpv = async (req, res, next) => {
 
     const nilaiSpvObject = new nilaiSpvSchema(PostNilaiSpv);
     const nilaiSpv = await nilaiSpvObject.save();
-    console.log(nilaiSpv)
+    // console.log(nilaiSpv)
     periode.nilaiSpvId.push({ _id: nilaiSpv._id });
     await periode.save();
 

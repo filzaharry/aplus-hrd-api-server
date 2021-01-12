@@ -111,6 +111,7 @@ exports.getKaryawanById = (req, res, next) => {
   karyawanSchema.findById(karyawanId)
   .populate({ path: 'departemenId', select: 'id nama_dep' })
   .populate({ path: 'jabatanId', select: 'id nama_jab' })
+  .populate({ path: 'periodeId', select: 'id tglMulai tglSelesai totalNilai status' })
     .then((result) => {
       if (!result) {
         const error = new Error("Karyawan tidak ditemukan");
