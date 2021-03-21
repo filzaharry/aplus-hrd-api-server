@@ -5,6 +5,7 @@ const jabatanSchema = new mongoose.Schema(
   {
     nama_jab: {
       type: String,
+      default: "Belum diisi"
       // required: true,
     },
     upahPerHari: {
@@ -16,6 +17,10 @@ const jabatanSchema = new mongoose.Schema(
     karyawanId: [{
         type: ObjectId,
         ref: "Karyawan",
+    }],
+    userId: [{
+      type: ObjectId,
+      ref: "User",
     }],
   },
   {

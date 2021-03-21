@@ -1,11 +1,19 @@
 require("dotenv").config();
 const userSchema    = require("../models/user");
+const departemenSchema    = require("../models/departemen");
+const jabatanSchema    = require("../models/jabatan");
 const bcryptjs      = require("bcryptjs");
 const jsonwebtoken  = require("jsonwebtoken");
 const { sendEmail } = require('../helpers')
 
 exports.registerUser = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  try {
+  const { namaLengkap, username, email, password } = req.body;
+  const departemenId = req.body.departemen
+  const jabatanId = req.body.jabatan
+
+  const departemen = await departemenSchema.findOne({ _id: departemenId });
+  const jabatan = await jabatanSchema.findOne({ _id: jabatanId });
 
   let emailUser = await userSchema.findOne({ email: email });
   let usernameUser = await userSchema.findOne({ username: username });
@@ -25,32 +33,41 @@ exports.registerUser = async (req, res, next) => {
 
   const hashPassword = await bcryptjs.hash(password, 10);
 
-  const PostUser = new userSchema({
+  const PostUser = {
+    namaLengkap: namaLengkap,
     username: username,
+    departemenId,
+    jabatanId,
     email: email,
     password: hashPassword,
-  });
+  };
 
-  PostUser.save()
-    .then((result) => {
-      res.status(201).json({
-        message: "User Baru Telah Ditambahkan",
-        data: result,
-      });
-    })
-    .catch((err) => {
+  const userObject = new userSchema(PostUser)
+  const user = await userObject.save();
+  // console.log(user)
+  departemen.userId.push({ _id: user._id })
+  await departemen.save()
+  jabatan.userId.push({ _id: user._id })
+  await jabatan.save()
+
+
+  
+  }catch(err){
       console.log("error user bos :", err);
-    });
+    };
 };
 
 exports.loginUser = async (req, res, next) => {
+  // try {
   const { username, password } = req.body;
 
   const dataUser = await userSchema.findOne({
-    $or: [{ username: username }, { email: username }],
+    $or: [
+      { username: username }, 
+      { email: username },
+    ],
   });
-  // console.log(dataUserEmail);
-  // console.log(dataUser);
+  console.log(dataUser);
   if (dataUser) {
     // jika username ada, pengecekan password
     const passwordUser = await bcryptjs.compare(password, dataUser.password);
@@ -62,8 +79,8 @@ exports.loginUser = async (req, res, next) => {
       const token = await jsonwebtoken.sign(data, process.env.JWT_SECRET);
       return res.status(200).json({
         message: "Berhasil Login",
-        username: username,
-        token: token,
+        token,
+        dataUser
       });
     } else {
       return res.status(404).json({
@@ -79,14 +96,26 @@ exports.loginUser = async (req, res, next) => {
   }
 };
 
-exports.getSingleUser = async (req, res) => {
+exports.getSingleUser = async (req, res, next) => {
+  
   // console.log(req.id);
-  const user = await userSchema.findOne({ _id: req.id });
-  return res.status(200).json({
-    message: "berhasil dipanggil",
-    data: user,
+  const user = req.id;
+  userSchema
+  .findById({ _id: user })
+  .populate({ path: 'departemenId', select: 'id nama_dep' })
+  .populate({ path: 'jabatanId', select: 'id nama_jab' })
+  .then((result) => {
+    return res.status(200).json({
+      message: "berhasil dipanggil",
+      data: result
+    });
+  })
+  .catch((err) => {
+    next(err);
   });
 };
+
+
 
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;

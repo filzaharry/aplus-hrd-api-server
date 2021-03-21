@@ -35,7 +35,7 @@ exports.createNilaiSpv = async (req, res, next) => {
     // console.log(periode)
 
     const hasilAkhir =
-      (hasilKerja +
+      ((hasilKerja +
         keterampilan +
         tanggungJawab +
         kerjasama +
@@ -46,7 +46,7 @@ exports.createNilaiSpv = async (req, res, next) => {
         loyalitas +
         inisiatif +
         rekomendasi) /
-      11;
+      1100000000);
 
     const PostNilaiSpv = {
       hasilKerja: hasilKerja,
@@ -141,7 +141,20 @@ exports.updateNilaiSpv = (req, res, next) => {
   const question3 = req.body.question3;
   const question4 = req.body.question4;
   const question5 = req.body.question5;
-  const totalNilai = req.body.totalNilai;
+  const rekomendasi = req.body.rekomendasi;
+  const hasilAkhir =
+      ((hasilKerja +
+        keterampilan +
+        tanggungJawab +
+        kerjasama +
+        disiplin +
+        kerajinan +
+        ketelitian +
+        kejujuran +
+        loyalitas +
+        inisiatif +
+        rekomendasi) /
+      1100000000);
   // update from nilaiSpvId
   const nilaiSpvId = req.params.nilaiSpvId;
 
@@ -169,7 +182,8 @@ exports.updateNilaiSpv = (req, res, next) => {
       nilaiSpv.question3 = question3;
       nilaiSpv.question4 = question4;
       nilaiSpv.question5 = question5;
-      nilaiSpv.totalNilai = totalNilai;
+      nilaiSpv.rekomendasi = rekomendasi;
+      nilaiSpv.hasilAkhir = hasilAkhir;
 
       return nilaiSpv.save();
     })

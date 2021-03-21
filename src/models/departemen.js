@@ -9,6 +9,7 @@ const departemenSchema = new mongoose.Schema({
     },
     nama_dep: {
       type: String,
+      default: "Belum diisi"
       // required: true,
     },
     supervisor: {
@@ -22,6 +23,10 @@ const departemenSchema = new mongoose.Schema({
     karyawanId: [{
         type: ObjectId,
         ref: "Karyawan",
+    }],
+    userId: [{
+      type: ObjectId,
+      ref: "User",
     }],
     
 });

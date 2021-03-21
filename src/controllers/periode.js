@@ -15,22 +15,14 @@ exports.createPeriode = async (req, res, next) => {
       throw err;
     }
 
-    const periode = req.body.periode;
+    const periodeKe = req.body.periodeKe;
     const tglMulai = req.body.tglMulai;
     const tglSelesai = req.body.tglSelesai;
     const nilaiHrdId = req.body.nilaiHrd
     const nilaiSpvId = req.body.nilaiSpv
 
-    const nilaiHrd = await nilaiHrdSchema.findOne({ _id: nilaiHrdId });
-    const nilaiSpv = await nilaiSpvSchema.findOne({ _id: nilaiSpvId });
-
-    const totalNilai = 0;
-    let status;
-    if (totalNilai > 20) {
-      status = "Diperpanjang";
-    } else {
-      status = "Tidak Diperpanjang";
-    }
+    // const nilaiHrd = await nilaiHrdSchema.findOne({ _id: nilaiHrdId });
+    // const nilaiSpv = await nilaiSpvSchema.findOne({ _id: nilaiSpvId });
 
 
     const karyawan = await karyawanSchema.findOne({
@@ -38,13 +30,11 @@ exports.createPeriode = async (req, res, next) => {
     });
     // console.log(karyawan);
     const PostPeriode = {
-      periode,
+      periodeKe,
       tglMulai,
       tglSelesai,
       nilaiHrdId,
-      nilaiSpvId,
-      totalNilai,
-      status,
+      nilaiSpvId
     };
 
     const periodeObject = new periodeSchema(PostPeriode);
@@ -81,8 +71,8 @@ exports.getPeriodeById = (req, res, next) => {
   const periodeId = req.params.periodeId;
   periodeSchema
     .findById(periodeId)
-    .populate({ path: 'nilaiSpvId', select: 'id hasilAkhir updatedAt' })
-    .populate({ path: 'nilaiHrdId', select: 'id updatedAt masuk izin setengahHari sakit alpa hasilAkhir' })
+    .populate('nilaiSpvId')
+    .populate('nilaiHrdId')
     .then((result) => {
       if (!result) {
         const error = new Error("Periode tidak ditemukan");
@@ -110,12 +100,11 @@ exports.updatePeriode = (req, res, next) => {
     throw err;
   }
 
+  const periodeKe = req.body.periodeKe
   const tglMulai = req.body.tglMulai;
   const tglSelesai = req.body.tglSelesai;
   const nilaiHrd = req.body.nilaiHrd
   const nilaiSpv = req.body.nilaiSpv
-  const totalNilai = req.body.totalNilai;
-  const status = req.body.status;
   const periodeId = req.params.periodeId;
 
   periodeSchema
@@ -127,13 +116,11 @@ exports.updatePeriode = (req, res, next) => {
         throw err;
       }
 
-      periode.periode = periode;
+      periode.periodeKe = periodeKe;
       periode.tglMulai = tglMulai;
       periode.tglSelesai = tglSelesai;
       periode.nilaiSpv = nilaiSpv;
       periode.nilaiHrd = nilaiHrd;
-      periode.totalNilai = totalNilai;
-      periode.status = status;
 
       return periode.save();
     })

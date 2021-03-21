@@ -24,12 +24,12 @@ exports.createNilaiHrd = async (req, res, next) => {
     // console.log(periode)
 
     const hasilAkhir =
-      (masuk +
-        izin +
-        setengahHari +
-        sakit +
+      (masuk -
+        izin -
+        setengahHari -
+        sakit -
         alpa) /
-      5;
+      2;
 
     const PostNilaiHrd = {
       masuk: masuk,
@@ -104,12 +104,12 @@ exports.updateNilaiHrd = (req, res, next) => {
   const sakit = req.body.sakit
   const alpa = req.body.alpa
   const hasilAkhir =
-      (masuk +
-        izin +
-        setengahHari +
-        sakit +
+      (masuk -
+        izin -
+        setengahHari -
+        sakit -
         alpa) /
-      5;
+      2;
   const nilaiHrdId = req.params.nilaiHrdId;
 
   nilaiHrdSchema

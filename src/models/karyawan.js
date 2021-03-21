@@ -18,12 +18,12 @@ const karyawanSchema = new mongoose.Schema(
     },
     departemenId: {
       type: ObjectId,
-      ref: "Departemen",
+      ref: "Departemen"
       // required: true,
     },
     jabatanId: {
       type: ObjectId,
-      ref: "Jabatan",
+      ref: "Jabatan"
       // required: true, 
     },
     tglMulai: {

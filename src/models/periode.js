@@ -3,9 +3,10 @@ const { ObjectId } = mongoose.Schema;
 
 const periodeSchema = new mongoose.Schema(
   {
-    periode: {
+    periodeKe: {
       type: String,
       // required: true,
+      unique: false
     },
     tglMulai: {
       type: Date,
@@ -15,22 +16,18 @@ const periodeSchema = new mongoose.Schema(
       type: Date,
       // required: true
     },
-    nilaiHrdId: [{
-      type: ObjectId,
-      ref: "NilaiHrd"
-    }],
-    nilaiSpvId: [{
-      type: ObjectId,
-      ref: "NilaiSpv"
-    }],
-    totalNilai: {
-      type: Number,
-      // required: true
-    },
-    status: {
-      type: String,
-      // required: true
-    },
+    nilaiHrdId: [
+      {
+        type: ObjectId,
+        ref: "NilaiHrd",
+      },
+    ],
+    nilaiSpvId: [
+      {
+        type: ObjectId,
+        ref: "NilaiSpv",
+      },
+    ],
   },
   {
     timestamps: true,

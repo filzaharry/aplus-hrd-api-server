@@ -94,15 +94,11 @@ exports.updateJabatan = (req, res, next) => {
     throw err;
   }
 
-  if (!req.file) {
-    const err = new Error("Image Harus di Upload");
-    err.errorStatus = 422;
-    throw err;
-  }
-
   const nama_jab = req.body.nama_jab;
   const upahPerHari = req.body.upahPerHari;
   const upahRataPerBulan = req.body.upahRataPerBulan;
+  // update from karyawanId
+  const jabatanId = req.params.jabatanId;
 
   jabatanSchema
     .findById(jabatanId)

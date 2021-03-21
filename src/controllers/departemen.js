@@ -77,7 +77,7 @@ exports.getDepartemenById = (req, res, next) => {
   const departemenId = req.params.departemenId;
   departemenSchema
     .findById(departemenId)
-    .populate({ path: "karyawanId", select: "id name nik tglMulai" })
+    .populate("karyawanId")
     .then((result) => {
       if (!result) {
         const error = new Error("Departemen tidak ditemukan");
