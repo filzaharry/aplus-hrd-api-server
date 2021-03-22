@@ -15,8 +15,7 @@ exports.validationRegister = [
   check("username", "username tidak boleh kosong").notEmpty(),
   check("email", "email tidak boleh kosong").notEmpty().matches(/.+\@.+\..+/).withMessage('email harus bertanda @'),
   check("password", "password tidak boleh kosong").notEmpty().isLength({min: 6}).withMessage('password minimal 6 character'),
-  check("departemenId", "Pilih Departemen Anda").notEmpty(),
-  check("jabatanId", "Pilih Jabatan Anda").notEmpty(),
+
 ];
 
 exports.validationLogin = [

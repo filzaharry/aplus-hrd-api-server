@@ -49,8 +49,9 @@ exports.registerUser = async (req, res, next) => {
   await departemen.save()
   jabatan.userId.push({ _id: user._id })
   await jabatan.save()
-
-
+  return res.status(200).json({
+    message: "Silahkan Login Dengan Akun Anda",
+  });
   
   }catch(err){
       console.log("error user bos :", err);

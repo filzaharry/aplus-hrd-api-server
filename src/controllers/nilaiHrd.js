@@ -23,13 +23,7 @@ exports.createNilaiHrd = async (req, res, next) => {
     const periode = await periodeSchema.findOne({ _id: req.params.periodeId });
     // console.log(periode)
 
-    const hasilAkhir =
-      (masuk -
-        izin -
-        setengahHari -
-        sakit -
-        alpa) /
-      2;
+    const hasilAkhir = (masuk - izin - setengahHari - sakit - alpa)*3.3;
 
     const PostNilaiHrd = {
       masuk: masuk,
