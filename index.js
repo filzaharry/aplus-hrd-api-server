@@ -87,6 +87,6 @@ mongoose
   )
   .then(() => {
     // port mongoose running localhost:4000
-    app.listen(process.env.PORT || 4000, () => console.log("Koneksi ke mongoose sukses gan!!!"));
+    app.listen(process.env.PORT || 7988, () => console.log("Koneksi ke mongoose sukses gan!!!"));
   })
   .catch((error) => console.log("error woyy:", error));
