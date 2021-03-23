@@ -41,6 +41,15 @@ exports.createKaryawan = async (req, res, next) => {
 
     const departemen = await departemenSchema.findOne({ _id: departemenId });
     const jabatan = await jabatanSchema.findOne({ _id: jabatanId });
+
+    let nikKaryawan = await karyawanSchema.findOne({ nik: nik });
+
+    if (nikKaryawan) {
+      return res.status(404).json({
+        status: false,
+        message: "nik sudah digunakan",
+      });
+    }
   
     const PostKaryawan = {
       image: image,
@@ -65,6 +74,13 @@ exports.createKaryawan = async (req, res, next) => {
     await departemen.save()
     jabatan.karyawanId.push({ _id: karyawan._id })
     await jabatan.save()
+    .then(result => {
+      res.status(201).json({
+          message: 'Berhasil Tambah Karyawan',
+          data: result
+      });
+  })
+
     
   } catch (error) {
     console.log(error)

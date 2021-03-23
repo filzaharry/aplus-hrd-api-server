@@ -38,7 +38,13 @@ exports.createNilaiHrd = async (req, res, next) => {
     const nilaiHrd = await nilaiHrdObject.save();
     // console.log(nilaiHrd)
     periode.nilaiHrdId.push({ _id: nilaiHrd._id });
-    await periode.save();
+    await periode.save()
+    .then(result => {
+      res.status(201).json({
+          message: 'Berhasil Tambah Nilai dari HRD',
+          data: result
+      })
+  })
 
 
   } catch (error) {

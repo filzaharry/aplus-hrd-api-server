@@ -41,7 +41,15 @@ exports.createPeriode = async (req, res, next) => {
     const periodeAwait = await periodeObject.save();
     // console.log(periodeAwait)
     karyawan.periodeId.push({ _id: periodeAwait._id });
-    await karyawan.save();
+    await karyawan.save()
+    .then(result => {
+      res.status(201).json({
+          message: 'Berhasil Tambah Periode Karyawan',
+          data: result
+      })
+  })
+
+
   } catch (error) {
     console.log(error);
     next(error);

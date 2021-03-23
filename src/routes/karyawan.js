@@ -9,9 +9,10 @@ const router = express.Router();
 
 // import controller
 const karyawanController = require("../controllers/karyawan");
+const { runValidation, validationKaryawan } = require("../validation");
 
 // createKaryawan is a controller with validator
-router.post("/karyawan", karyawanController.createKaryawan);
+router.post("/karyawan", validationKaryawan,runValidation,karyawanController.createKaryawan);
 
 // getAllKaryawan is a controller
 router.get("/karyawan", karyawanController.getAllKaryawan);
