@@ -35,7 +35,7 @@ exports.createNilaiSpv = async (req, res, next) => {
     // console.log(periode)
 
     const hasilAkhir =
-      ((hasilKerja +
+      (hasilKerja +
         keterampilan +
         tanggungJawab +
         kerjasama +
@@ -46,7 +46,7 @@ exports.createNilaiSpv = async (req, res, next) => {
         loyalitas +
         inisiatif +
         rekomendasi) /
-      1100000000);
+      1100000000;
 
     const PostNilaiSpv = {
       hasilKerja: hasilKerja,
